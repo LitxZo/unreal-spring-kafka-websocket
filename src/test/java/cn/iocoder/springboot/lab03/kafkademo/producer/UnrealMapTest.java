@@ -33,10 +33,6 @@ public class UnrealMapTest {
     public void test() throws ExecutionException, InterruptedException, IOException {
 
         System.out.println(unrealMap);
-        System.out.println(unrealMap.get("8880"));
-        Runtime runtime = Runtime.getRuntime();
-        runtime.exec(unrealMap.get("8880") + " -AudioMixer -PixelStreamingIP="+ PixelStreamingPort+ " -PixelStreamingPort=" + "8880");
-//
         new CountDownLatch(1).await();
     }
 

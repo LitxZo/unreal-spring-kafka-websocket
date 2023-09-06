@@ -11,6 +11,8 @@ import org.springframework.util.backoff.FixedBackOff;
 @Configuration
 public class KafkaConfiguration {
 
+    public static final String SEND_TOPIC = "topic-1";
+    public static final String RESPONSE_TOPIC = "effect-data-topic-2";
     @Bean
     @Primary
     public ErrorHandler kafkaErrorHandler(KafkaTemplate<?, ?> template) {
