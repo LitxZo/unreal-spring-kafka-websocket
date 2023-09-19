@@ -1,9 +1,9 @@
 package cn.iocoder.springboot.lab03.kafkademo.consumer;
 
+import cn.hutool.core.date.StopWatch;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.iocoder.springboot.lab03.kafkademo.config.KafkaConfiguration;
-import cn.iocoder.springboot.lab03.kafkademo.message.SimulationMessage;
 import cn.iocoder.springboot.lab03.kafkademo.producer.ResponseProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +44,13 @@ public class SimulationConsumer {
 
         logger.info("收到simulation request");
         logger.info("[onMessage][线程编号:{} 消息内容：{}]", Thread.currentThread().getId(), record);
+//        StopWatch stopWatch = new StopWatch();
+//        stopWatch.start();
         startUnreal: for(;;){
             for(Map.Entry<String, String> entry : unrealMap.entrySet()){
                 if (!redisTemplate.hasKey(entry.getKey())){
                     //把port存入redis
-                    redisTemplate.opsForValue().set(entry.getKey(), entry.getValue(),120, TimeUnit.SECONDS);
+                    redisTemplate.opsForValue().set(entry.getKey(), entry.getValue(),110, TimeUnit.SECONDS);
                     //打开指定的shell
                     Runtime runtime = Runtime.getRuntime();
                     runtime.exec(entry.getValue() + " -AudioMixer -PixelStreamingIP="+ PixelStreamingPort+ " -PixelStreamingPort=" + entry.getKey());
@@ -57,26 +59,10 @@ public class SimulationConsumer {
                     break startUnreal;
                 }
             }
-            Thread.currentThread().sleep(3000);
-        }
-        // todo: 测试用，只是单纯开两个应用出来，一个开在80，一个在81
-//        if(num==1){
-//            Runtime runtime = Runtime.getRuntime();
-        // todo: exec路径需更改
-//            runtime.exec("D:\\code\\unreal\\baopo_server_2\\Windows\\baopo_demo.exe -AudioMixer -PixelStreamingIP=101.34.210.171 -PixelStreamingPort=8880");
-//            logger.info("start 80 port application.");
-//            num++;
-//        }
-//        else{
-//            Runtime runtime = Runtime.getRuntime();
-        // todo: exec路径需更改
-//            runtime.exec("D:\\code\\unreal\\baopo_server_2\\Windows\\baopo_demo.exe -AudioMixer -PixelStreamingIP=101.34.210.171 -PixelStreamingPort=8881");
-//            logger.info("start 81 port application.");
-//        }
 
-        /*
-            打开shell
-         */
+            Thread.currentThread().sleep(3000);
+
+        }
 
     }
 

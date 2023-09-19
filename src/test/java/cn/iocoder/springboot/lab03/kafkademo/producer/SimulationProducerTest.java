@@ -56,7 +56,7 @@ public class SimulationProducerTest {
 //        }
 //
 //        JSONObject jsonObject2 = JSONUtil.createObj();
-//        jsonObject2.put("taskId", "12");
+//        jsonObject2.put("taskId", "13");
 //        jsonObject2.put("fogIntensity", 0.006);
 ////        jsonObject2.put("weather", "1");
 //        jsonObject2.put("time", "黄昏"); // enum 白天，黄昏，夜晚

@@ -26,8 +26,8 @@ spring:
     port: 6379
 
   server:
-    host: 192.168.3.128
-    unrealMap: "{8880: 'D:\\boom\\baopo_server_8012_ws8092\\Windows\\baopo_demo.exe'}"
+    host: 192.168.3.44
+    unrealMap: "{8888: 'D:\\boom\\baopo_server_8012_ws8098_0908\\Windows\\baopo_demo.exe'}"
 logging:
   level:
     org:
@@ -46,3 +46,6 @@ ws:
   host: 127.0.0.1
   port: 80
   path: /ws/
+
+server:
+  port: 8901

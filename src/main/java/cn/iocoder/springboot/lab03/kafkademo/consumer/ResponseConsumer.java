@@ -1,7 +1,7 @@
 package cn.iocoder.springboot.lab03.kafkademo.consumer;
 
 import cn.iocoder.springboot.lab03.kafkademo.config.KafkaConfiguration;
-import cn.iocoder.springboot.lab03.kafkademo.message.SimulationResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;

@@ -98,7 +98,7 @@ public class MyWebSocket {
             System.out.println("status: " + status);
             responseObject.put("isUrl", 1);
             responseObject.put("taskId", jsonObject.getStr("taskId"));
-            responseObject.put("url",serverIp + ":" + jsonObject.getStr("port"));
+            responseObject.put("url",serverIp + ":" + jsonObject.getStr("port") + "/?id=" + jsonObject.getStr("taskId"));
             responseProducer.syncSend(responseObject);
 
 //            String msg = redisTemplate.opsForList().leftPop("kafkaQueue").toString();
@@ -124,12 +124,8 @@ public class MyWebSocket {
         }
         else if (Objects.equals(status, "Done")) {
             System.out.println("status: " + status);
-            responseObject.put("isUrl", 0);
-            responseObject.put("taskId", jsonObject.getStr("taskId"));
-            responseObject.put("impactRadius", jsonObject.getDouble("impactRadius"));
-            responseObject.put("freq", jsonObject.getJSONArray("freq"));
-            responseObject.put("timeList", jsonObject.getJSONArray("timeList"));
-            responseObject.put("explosionRadius", jsonObject.getDouble("explosionRadius"));
+
+
             SendResult rep =  responseProducer.syncSend(jsonObject);
             System.out.printf(rep.toString());
 
@@ -137,7 +133,7 @@ public class MyWebSocket {
         else{
             System.out.println(jsonObject.toString());
             //从redis中删除对应的应用
-            redisTemplate.delete("88" + jsonObject.getInt("port").toString());
+            redisTemplate.delete(jsonObject.getInt("streamPort"));
 
         }
 
