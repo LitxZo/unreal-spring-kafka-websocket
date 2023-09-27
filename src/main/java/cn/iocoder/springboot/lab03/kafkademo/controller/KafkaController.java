@@ -5,11 +5,12 @@ import cn.hutool.json.JSONUtil;
 import cn.iocoder.springboot.lab03.kafkademo.producer.ResponseProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
@@ -17,15 +18,24 @@ import java.util.concurrent.ExecutionException;
 public class KafkaController {
     @Autowired
     private ResponseProducer responseProducer;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @PostMapping("/video/{taskid}")
-    public String postVideo(@PathVariable String taskid, @RequestBody String s) throws ExecutionException, InterruptedException {
+    public void postVideo(@PathVariable String taskid, @RequestParam MultipartFile blobFile) throws ExecutionException, InterruptedException, IOException {
         System.out.println("post video:");
         System.out.println(taskid);
+
+        byte[] fileBytes = blobFile.getBytes();
+        String base64Data = Base64.getEncoder().encodeToString(fileBytes);
         JSONObject responseObject = JSONUtil.createObj();
         responseObject.put("taskId", taskid);
-        responseObject.put("videoBlob", s);
-        responseProducer.syncSend(responseObject);
-        return s;
+        responseObject.put("videoBlob", base64Data);
+
+        redisTemplate.opsForList().rightPush("videoQueue", responseObject);
+        JSONObject kafkaResponse = JSONUtil.createObj();
+        kafkaResponse.put("taskId", taskid);
+        kafkaResponse.put("type", "video");
+        responseProducer.syncSend(kafkaResponse);
     }
 }

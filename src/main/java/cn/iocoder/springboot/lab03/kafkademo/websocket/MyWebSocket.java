@@ -96,7 +96,7 @@ public class MyWebSocket {
 //        boolean exit = jsonObject.getBool("exit");
         if (Objects.equals(status, "OK")){
             System.out.println("status: " + status);
-            responseObject.put("isUrl", 1);
+            responseObject.put("type", "url");
             responseObject.put("taskId", jsonObject.getStr("taskId"));
             responseObject.put("url",serverIp + ":" + jsonObject.getStr("port") + "/?id=" + jsonObject.getStr("taskId"));
             responseProducer.syncSend(responseObject);
@@ -124,7 +124,7 @@ public class MyWebSocket {
         }
         else if (Objects.equals(status, "Done")) {
             System.out.println("status: " + status);
-
+            jsonObject.put("type", "effectData");
 
             SendResult rep =  responseProducer.syncSend(jsonObject);
             System.out.printf(rep.toString());

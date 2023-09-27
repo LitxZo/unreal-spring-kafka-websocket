@@ -27,7 +27,7 @@ spring:
 
   server:
     host: 192.168.3.44
-    unrealMap: "{8888: 'D:\\boom\\baopo_server_8012_ws8098_0908\\Windows\\baopo_demo.exe'}"
+    unrealMap: "{8880: 'D:\\boom\\baopo_0918\\baopo_server_8012_ws8092\\Windows\\baopo_demo.exe'}"
 logging:
   level:
     org:
