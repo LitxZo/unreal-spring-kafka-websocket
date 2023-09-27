@@ -27,7 +27,11 @@ spring:
 
   server:
     host: 192.168.3.44
+
     unrealMap: "{8880: 'D:\\boom\\baopo_0918\\baopo_server_8012_ws8092\\Windows\\baopo_demo.exe'}"
+
+    # 这里的8888 指的是推流服务和虚幻建立连接的端口，可在启动推流服务后查看。
+
 logging:
   level:
     org:
