@@ -33,6 +33,7 @@ public class KafkaController {
         responseObject.put("videoBlob", base64Data);
 
         redisTemplate.opsForList().rightPush("videoQueue", responseObject);
+        System.out.println("已将视频信息存入redis");
         JSONObject kafkaResponse = JSONUtil.createObj();
         kafkaResponse.put("taskId", taskid);
         kafkaResponse.put("type", "video");

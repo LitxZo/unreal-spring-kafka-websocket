@@ -22,22 +22,50 @@ public class SendMsgController {
 
     @RequestMapping("/send")
     public void sendMsg() throws ExecutionException, InterruptedException {
+//        JSONObject jsonObject = JSONUtil.createObj();
+//        jsonObject.put("taskId", "12");
+//        jsonObject.put("fogIntensity", 0.006);
+//
+//        jsonObject.put("time", "黄昏"); // enum 白天，黄昏，夜晚
+//        jsonObject.put("cloud", true);
+//        jsonObject.put("explosionLevel", 3);
+//        jsonObject.put("lighting", false);
+//        jsonObject.put("inAir", false);
+//        JSONObject windObj = JSONUtil.createObj();
+//        windObj.put("x", 0.0);
+//        windObj.put("y", 0.0);
+//        windObj.put("z", 0.0);
+//        jsonObject.put("wind", windObj);
+////        jsonObject.put("levelName", "IslandMap");
+//        jsonObject.put("levelName", "PlainMap");
+
+
         JSONObject jsonObject = JSONUtil.createObj();
         jsonObject.put("taskId", "12");
         jsonObject.put("fogIntensity", 0.006);
-
+        jsonObject.put("weather", "1");
         jsonObject.put("time", "黄昏"); // enum 白天，黄昏，夜晚
         jsonObject.put("cloud", true);
-        jsonObject.put("explosionLevel", 3);
+        jsonObject.put("equivalent", 3);
         jsonObject.put("lighting", false);
-        jsonObject.put("inAir", false);
+        jsonObject.put("geography", 1);
         JSONObject windObj = JSONUtil.createObj();
-        windObj.put("x", 0.0);
-        windObj.put("y", 0.0);
-        windObj.put("z", 0.0);
+        windObj.put("x", 0);
+        windObj.put("y", 0);
+        windObj.put("z", 0);
         jsonObject.put("wind", windObj);
-//        jsonObject.put("levelName", "IslandMap");
-        jsonObject.put("levelName", "PlainMap");
+        jsonObject.put("bombType", 1);
+        jsonObject.put("eventType", 1);
+        jsonObject.put("eventLon", 100);
+        jsonObject.put("eventLat", 100);
+        jsonObject.put("sustainTime", 11);
+        jsonObject.put("dataType", 2);
+        jsonObject.put("windSpeed", 100);
+        jsonObject.put("windTrend", "东");
+        String[] diffusionRange = {"10", "50"};
+        String[] diffusionTime = {"1", "2"};
+        jsonObject.put("diffusionRange", diffusionRange);
+        jsonObject.put("diffusionTime", diffusionTime);
 
         System.out.println(jsonObject);
 
