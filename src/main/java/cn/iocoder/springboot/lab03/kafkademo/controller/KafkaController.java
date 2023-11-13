@@ -22,12 +22,12 @@ public class KafkaController {
     private RedisTemplate redisTemplate;
 
     @PostMapping("/video/{taskid}")
-    public void postVideo(@PathVariable String taskid, @RequestParam MultipartFile blobFile) throws ExecutionException, InterruptedException, IOException {
+    public void postVideo(@PathVariable String taskid, @RequestParam byte[] blobFile) throws ExecutionException, InterruptedException, IOException {
         System.out.println("post video:");
         System.out.println(taskid);
 
-        byte[] fileBytes = blobFile.getBytes();
-        String base64Data = Base64.getEncoder().encodeToString(fileBytes);
+
+        String base64Data = Base64.getEncoder().encodeToString(blobFile);
         JSONObject responseObject = JSONUtil.createObj();
         responseObject.put("taskId", taskid);
         responseObject.put("videoBlob", base64Data);

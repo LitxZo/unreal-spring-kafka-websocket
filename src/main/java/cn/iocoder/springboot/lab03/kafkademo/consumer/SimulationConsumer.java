@@ -30,8 +30,8 @@ public class SimulationConsumer {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
     private int num = 1;
-    @Value("${spring.server.host}")
-    private String PixelStreamingPort;
+    @Value("${spring.pixel-streaming.host}")
+    private String PixelStreamingIP;
     @Autowired
     private ResponseProducer responseProducer = new ResponseProducer();
 
@@ -53,8 +53,8 @@ public class SimulationConsumer {
                     redisTemplate.opsForValue().set(entry.getKey(), entry.getValue(),110, TimeUnit.SECONDS);
                     //打开指定的shell
                     Runtime runtime = Runtime.getRuntime();
-                    runtime.exec(entry.getValue() + " -AudioMixer -PixelStreamingIP="+ PixelStreamingPort+ " -PixelStreamingPort=" + entry.getKey());
-                    logger.info("start port application"+ entry.getValue() + " -AudioMixer -PixelStreamingIP="+ PixelStreamingPort+ " -PixelStreamingPort=" + entry.getKey());
+                    runtime.exec(entry.getValue() + " -AudioMixer -PixelStreamingIP="+ PixelStreamingIP+ " -PixelStreamingPort=" + entry.getKey());
+                    logger.info("start port application"+ entry.getValue() + " -AudioMixer -PixelStreamingIP="+ PixelStreamingIP+ " -PixelStreamingPort=" + entry.getKey());
 
                     break startUnreal;
                 }

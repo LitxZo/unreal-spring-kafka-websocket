@@ -67,8 +67,10 @@ public class SendMsgController {
         jsonObject.put("diffusionRange", diffusionRange);
         jsonObject.put("diffusionTime", diffusionTime);
 
+
         System.out.println(jsonObject);
 
         SendResult result = producer.syncSend(jsonObject);
+        System.out.println(result);
     }
 }

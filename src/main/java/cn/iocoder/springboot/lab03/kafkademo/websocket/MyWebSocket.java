@@ -53,20 +53,32 @@ public class MyWebSocket {
 
         JSONObject jsonObject = JSONUtil.parseObj(msg);
         JSONObject responseObject = JSONUtil.createObj();
+        responseObject.put("equivalent", jsonObject.getInt("equivalent"));
+        responseObject.put("eventLon", jsonObject.getInt("eventLon"));
+        responseObject.put("sustainTime", jsonObject.getInt("sustainTime"));
+        responseObject.put("dataType", Integer.parseInt(jsonObject.getStr("dataType")));
         responseObject.put("taskId", jsonObject.getStr("taskId"));
-        responseObject.put("fogIntensity", jsonObject.getFloat("fogIntensity"));
-        responseObject.put("time", jsonObject.getStr("time")); // enum 白天，黄昏，夜晚
-        responseObject.put("cloud", jsonObject.getBool("cloud"));
-        responseObject.put("explosionLevel", jsonObject.getInt("explosionLevel"));
-        responseObject.put("inAir", jsonObject.getBool("inAir"));
-        responseObject.put("lighting", jsonObject.getBool("lighting"));
+        responseObject.put("windTrend", jsonObject.getStr("windTrend"));
+        responseObject.put("fogIntensity", 0.006);
+        responseObject.put("bombType", jsonObject.getInt("bombType"));
+        responseObject.put("eventType", jsonObject.getInt("eventType"));
+        responseObject.put("cloud", true);
+        responseObject.put("weather", jsonObject.getStr("weather"));
+        responseObject.put("time", "黄昏");
+        responseObject.put("diffusionRange", jsonObject.getJSONArray("diffusionRange"));
+        responseObject.put("diffusionTime", jsonObject.getJSONArray("diffusionTime"));
+        responseObject.put("geography", jsonObject.getInt("geography"));
+        responseObject.put("eventLat", jsonObject.getInt("eventLat"));
+
+        responseObject.put("windSpeed", jsonObject.getInt("windSpeed"));
+        responseObject.put("lighting",true);
         JSONObject windObj = jsonObject.getJSONObject("wind");
         JSONObject respWindObj = JSONUtil.createObj();
-        respWindObj.put("x", windObj.getDouble("x"));
-        respWindObj.put("y", windObj.getDouble("y"));
-        respWindObj.put("z", windObj.getDouble("z"));
+        respWindObj.put("x", 0.0);
+        respWindObj.put("y", 0.0);
+        respWindObj.put("z", 0.0);
         responseObject.put("wind", respWindObj);
-        responseObject.put("levelName", jsonObject.getStr("levelName"));
+
         session.sendText(responseObject.toString());
 //        session.sendText("{\"taskId\":\"0000000000\",\"fogIntensity\":0.006,\"weather\":\"1\",\"time\":\"1\",\"cloud\":true,\"explosionLevel\":3,\"wind\":{\"x\":0,\"y\":0,\"z\":\n" +
 //                "0},\"levelName\":\"IslandMap\"}");
